@@ -1,9 +1,10 @@
 import "./styles.css";
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { ChildArea } from "./childArea";
 
 export default function App() {
   console.log("App");
+  // Stateの定義
   // const [count, setCount] = useState(0);
   const [text, setText] = useState("");
   const [open, setOpen] = useState(false);
@@ -14,7 +15,8 @@ export default function App() {
 
   const onClickOpen = () => setOpen(!open);
 
-  const onClickClose = () => setOpen(false);
+  // 実際にはonClickcloseは状態が変化していないが、state:openがenderにより、再生成されている判定になるので、処理が変わらない限り、同じものを使い回す。
+  const onClickClose = useCallback(() => setOpen(false), [setOpen]);
 
   return (
     <div className="App">
